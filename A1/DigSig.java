@@ -1,9 +1,13 @@
+/*--------
+Signature generation and verification references Java doc - 
+https://docs.oracle.com/javase/tutorial/security/apisign/index.html
+---------*/
+
 import java.io.*;
 import java.security.*;
 import java.security.spec.*;
 import java.util.*;
 import java.util.Scanner;
-
 
 class DigSig {
 
@@ -11,7 +15,7 @@ class DigSig {
         Scanner user_input = new Scanner( System.in );
         String in;
         System.out.println("Enter 1 to verify your license expiry and digital signature.");
-        System.out.println("Enter 2 to exit.");
+        System.out.println("Enter any other key to exit.");
         System.out.print("Enter your choice now, human: ");
         in = user_input.nextLine();
         return in;
@@ -21,6 +25,7 @@ class DigSig {
         /*** Generate a DSA signature ***/
         String license = "license.txt";
         String line = null;
+        boolean error=false;
         byte[] buffer = new byte[1024];
 
         try {
@@ -62,14 +67,18 @@ class DigSig {
             keyfos.write(key);
             keyfos.close();
 
-            System.out.println("\n***\nHello human. A public key and signature has been generated from the license file.\n");
+            System.out.println("***\nHello human. A public key and signature has been generated from the license file.\n");
             System.out.println("This program will only continue to run once your license file is verified.\n***");
 
         } catch (Exception e) {
             System.err.println("Caught exception " + e.toString());
+            error = true;
         }
 
-        //User chooses to verify license
+        if(error){
+            System.exit(0);
+        }
+        /*** User chooses to verify license ***/
         String choice;
         choice = getInput();
 
@@ -152,6 +161,7 @@ class DigSig {
                 boolean verifies = sig.verify(sigToVerify);
                 if(verifies){
                     System.out.println("---\nSignature verified!\n---");
+                    System.out.println("Human, you are ~ very ~ special.");
                 }
                 else{
                     System.out.println("---\nSorry human, the signature was unable to be verified.\n---");
@@ -159,6 +169,9 @@ class DigSig {
             } catch (Exception e) {
                 System.err.println("Caught exception " + e.toString());
             }
-        }//if choice equals 1 (to verify license)
+        }
+        else{
+            System.out.println("~ Farewell human ~ ");
+        }
     }//main
 }//class
