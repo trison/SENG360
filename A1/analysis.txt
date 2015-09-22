@@ -1,5 +1,5 @@
 Vulnerability Analysis
 
-Threat 1 - 
+Threat 1 - The Java .class file can be decompiled, revealing the private key and verification method. The attacker can then generate a valid license.
 
-Threat 2 - 
+Threat 2 - The digital signature is created at runtime using the supplied license file. Any license file with valid expiration date can then be placed in the directory, and a valid signature will be generated.

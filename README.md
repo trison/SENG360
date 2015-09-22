@@ -22,4 +22,3 @@ The user can alter the contents of the license before continuing with verificati
 file is changed, the program will exit with output message indicating the signature was invalid. If
 the license was not changed, the program output message indicating a valid signature and continue executing.
 Continuing execution entails the program notifying the user of how special they are.
-
